@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button mTestButton;
     String[] places = {"Amsterdam", "Florence"};
     Integer[] imageId = {R.drawable.amsterdam, R.drawable.florence};
+    Integer[] imageId2 = {R.drawable.amsterdam2, R.drawable.florence2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fab.setOnClickListener(this);
 
-        CustomList adapter = new CustomList(MainActivity.this, places, imageId);
+        CustomList adapter = new CustomList(MainActivity.this, places, imageId, imageId2);
         mContentListView.setAdapter(adapter);
         mContentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
