@@ -5,12 +5,17 @@ package com.epicodus.airbnb;
  */
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,6 +25,7 @@ public class CustomList extends ArrayAdapter<String> {
     private final Integer[] imageId;
     private final Integer[] imageId2;
     private final Integer[] imageId3;
+
     public CustomList(Activity context,
                       String[] web, Integer[] imageId, Integer[] imageId2, Integer[] imageId3) {
         super(context, R.layout.list_single, web);
@@ -32,12 +38,23 @@ public class CustomList extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.list_single, null, true);
+        final View rowView= inflater.inflate(R.layout.list_single, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
-
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
         ImageView imageView2 = (ImageView) rowView.findViewById(R.id.imageView2);
         ImageView imageView3 = (ImageView) rowView.findViewById(R.id.imageView3);
+        LinearLayout imageLinearLayout = (LinearLayout) rowView.findViewById(R.id.imageLinearLayout);
+
+
+        txtTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer realPosition = (Integer) v.getId();
+                TextView clickedTextView = (TextView) rowView.findViewById(realPosition);
+                Toast.makeText(context, "You clicked on " + clickedTextView.getText().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
         txtTitle.setText(web[position]);
 
         imageView.setImageResource(imageId[position]);
@@ -45,6 +62,7 @@ public class CustomList extends ArrayAdapter<String> {
         imageView3.setImageResource(imageId3[position]);
         return rowView;
     }
+
 
 
 }
