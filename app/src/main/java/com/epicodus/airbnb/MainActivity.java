@@ -17,14 +17,14 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.contentListView) ListView mContentListView;
-    @Bind(R.id.testButton)
+    @Bind(R.id.fab) FloatingActionButton fab;
     Button mTestButton;
-    String[] places = {"Amsterdam"};
-    Integer[] imageId = {R.drawable.amsterdam};
+    String[] places = {"Amsterdam", "Florence"};
+    Integer[] imageId = {R.drawable.amsterdam, R.drawable.florence};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +37,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mTestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "it worksTest");
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(this);
 
         CustomList adapter = new CustomList(MainActivity.this, places, imageId);
         mContentListView.setAdapter(adapter);
@@ -62,7 +48,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "You Clicked on " + places[+ position], Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    @Override
+    public void onClick(View view) {
+        if (view == fab) {
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     @Override
