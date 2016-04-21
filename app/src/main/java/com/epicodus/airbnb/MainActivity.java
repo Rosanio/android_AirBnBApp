@@ -1,5 +1,7 @@
 package com.epicodus.airbnb;
 
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String[] places = {"Amsterdam", "Florence"};
     Integer[] imageId = {R.drawable.amsterdam, R.drawable.florence};
     Integer[] imageId2 = {R.drawable.amsterdam2, R.drawable.florence2};
+    Integer[] imageId3 = {R.drawable.amsterdam3, R.drawable.florence3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +42,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setTitle("");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        TextView txtFont = (TextView) findViewById(R.id.custom_font);
+        Typeface font = Typeface.createFromAsset(getAssets(), "bello.ttf");
+        txtFont.setTypeface(font);
+
         fab.setOnClickListener(this);
 
-        CustomList adapter = new CustomList(MainActivity.this, places, imageId, imageId2);
+        CustomList adapter = new CustomList(MainActivity.this, places, imageId, imageId2, imageId3);
         mContentListView.setAdapter(adapter);
         mContentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -53,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(intent);
         if (view == fab) {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();

@@ -19,14 +19,15 @@ public class CustomList extends ArrayAdapter<String> {
     private final String[] web;
     private final Integer[] imageId;
     private final Integer[] imageId2;
+    private final Integer[] imageId3;
     public CustomList(Activity context,
-                      String[] web, Integer[] imageId, Integer[] imageId2) {
+                      String[] web, Integer[] imageId, Integer[] imageId2, Integer[] imageId3) {
         super(context, R.layout.list_single, web);
         this.context = context;
         this.web = web;
         this.imageId = imageId;
         this.imageId2 = imageId2;
-
+        this.imageId3 = imageId3;
     }
     @Override
     public View getView(int position, View view, ViewGroup parent) {
@@ -36,10 +37,12 @@ public class CustomList extends ArrayAdapter<String> {
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
         ImageView imageView2 = (ImageView) rowView.findViewById(R.id.imageView2);
+        ImageView imageView3 = (ImageView) rowView.findViewById(R.id.imageView3);
         txtTitle.setText(web[position]);
 
         imageView.setImageResource(imageId[position]);
         imageView2.setImageResource(imageId2[position]);
+        imageView3.setImageResource(imageId3[position]);
         return rowView;
     }
 
